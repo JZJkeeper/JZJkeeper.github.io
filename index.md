@@ -84,4 +84,4 @@ $Y_{lm}(\theta, \phi) = \sqrt{\frac{(2l+1)(l-m)!}{(l+m)!}} P_l^m(\cos \theta) e^
 
 下面我们列出几个球谐函数：
 
-$$\begin{aligned}&Y_{0}^{0}=\sqrt{\frac{1}{4\pi}}\\&Y_{-1}^{1}=\sqrt{\frac{4}{8\pi}}\sin\theta e^{-i\phi},Y_{0}^{1}=\sqrt{\frac{4}{8\pi}}\cos\theta,Y_{1}^{1}=-\sqrt{\frac{4}{8\pi}}\sin\theta e^{i\phi}\\&Y_{-2}^{2}=\frac{1}{4}\sqrt{\frac{15}{2\pi}}\sin^{2}\theta e^{-2i\phi},Y_{-1}^{2}=\frac{1}{2}\sqrt{\frac{15}{2\pi}}\sin\theta\cos\theta e^{-i\phi},Y_{0}^{2}=\frac{1}{4}\sqrt{\frac{5}{\pi}}(3\cos^{2}\theta-1),\\&Y_{1}^{2}=-Y_{-1}^{2}{}^{*},Y_{2}^{2}=Y_{-2}^{2}{}^{*}\end{aligned}$$
+\[\begin{aligned}&Y_{0}^{0}=\sqrt{\frac{1}{4\pi}}\\&Y_{-1}^{1}=\sqrt{\frac{4}{8\pi}}\sin\theta e^{-i\phi},Y_{0}^{1}=\sqrt{\frac{4}{8\pi}}\cos\theta,Y_{1}^{1}=-\sqrt{\frac{4}{8\pi}}\sin\theta e^{i\phi}\\&Y_{-2}^{2}=\frac{1}{4}\sqrt{\frac{15}{2\pi}}\sin^{2}\theta e^{-2i\phi},Y_{-1}^{2}=\frac{1}{2}\sqrt{\frac{15}{2\pi}}\sin\theta\cos\theta e^{-i\phi},Y_{0}^{2}=\frac{1}{4}\sqrt{\frac{5}{\pi}}(3\cos^{2}\theta-1),\\&Y_{1}^{2}=-Y_{-1}^{2}{}^{*},Y_{2}^{2}=Y_{-2}^{2}{}^{*}\end{aligned}\]
