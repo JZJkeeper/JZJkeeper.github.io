@@ -1,116 +1,86 @@
-# The Cayman theme
 
-[![.github/workflows/ci.yaml](https://github.com/pages-themes/cayman/actions/workflows/ci.yaml/badge.svg)](https://github.com/pages-themes/cayman/actions/workflows/ci.yaml) [![Gem Version](https://badge.fury.io/rb/jekyll-theme-cayman.svg)](https://badge.fury.io/rb/jekyll-theme-cayman)
 
-*Cayman is a Jekyll theme for GitHub Pages. You can [preview the theme to see what it looks like](http://pages-themes.github.io/cayman), or even [use it today](#usage).*
 
-![Thumbnail of Cayman](thumbnail.png)
 
-## Usage
+球谐函数（Spherical Harmonics）是通过在球坐标下求解三维拉普拉斯方程（Laplace's Equation）得到的。下面将详细展示这一计算过程，每一步都尽量清晰。
 
-To use the Cayman theme:
+### 1. 三维拉普拉斯方程
 
-1. Add the following to your site's `_config.yml`:
+三维拉普拉斯方程在笛卡尔坐标下表示为：
 
-    ```yml
-    remote_theme: pages-themes/cayman@v0.2.0
-    plugins:
-    - jekyll-remote-theme # add this line to the plugins list if you already have one
-    ```
+$\nabla^2 \Phi = 0$
 
-2. Optionally, if you'd like to preview your site on your computer, add the following to your site's `Gemfile`:
+其中，$\nabla^2$ 是拉普拉斯算子，$\Phi$ 是待求解的函数。
 
-    ```ruby
-    gem "github-pages", group: :jekyll_plugins
-    ```
+### 2. 转换为球坐标
 
-## Customizing
+在球坐标下（$r, \theta, \phi$），拉普拉斯算子可以表示为：
 
-### Configuration variables
+$\nabla^2 \Phi = \frac{1}{r^2} \frac{\partial}{\partial r} \left( r^2 \frac{\partial \Phi}{\partial r} \right) + \frac{1}{r^2 \sin^2 \theta} \frac{\partial^2 \Phi}{\partial \phi^2} + \frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial \Phi}{\partial \theta} \right)$
 
-Cayman will respect the following variables, if set in your site's `_config.yml`:
+### 3. 分离变量
 
-```yml
-title: [The title of your site]
-description: [A short description of your site's purpose]
-```
+假设 $\Phi(r, \theta, \phi)$ 可以分离为径向函数 $R(r)$ 和角向函数 $Y(\theta, \phi)$ 的乘积，即：
 
-Additionally, you may choose to set the following optional variables:
+$\Phi(r, \theta, \phi) = R(r) Y(\theta, \phi)$
 
-```yml
-show_downloads: ["true" or "false" (unquoted) to indicate whether to provide a download URL]
-google_analytics: [Your Google Analytics tracking ID]
-```
+### 4. 代入拉普拉斯方程
 
-### Stylesheet
+将 $\Phi(r, \theta, \phi)$ 代入拉普拉斯方程，得到：
 
-If you'd like to add your own custom styles:
+$\frac{1}{r^2} \frac{d}{dr} \left( r^2 \frac{dR}{dr} \right) + \frac{1}{r^2 \sin^2 \theta} \frac{\partial^2 Y}{\partial \phi^2} + \frac{1}{r^2 \sin \theta} \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial Y}{\partial \theta} \right) = 0$
 
-1. Create a file called `/assets/css/style.scss` in your site
-2. Add the following content to the top of the file, exactly as shown:
-    ```scss
-    ---
-    ---
+### 5. 分离方程
 
-    @import "{{ site.theme }}";
-    ```
-3. Add any custom CSS (or Sass, including imports) you'd like immediately after the `@import` line
+通过乘以 $r^2$ 并重新整理，可以将方程分离为两部分：
 
-*Note: If you'd like to change the theme's Sass variables, you must set new values before the `@import` line in your stylesheet.*
+$\frac{d}{dr} \left( r^2 \frac{dR}{dr} \right) = -\lambda r^2$
 
-### Layouts
+$\frac{1}{\sin^2 \theta} \frac{\partial^2 Y}{\partial \phi^2} + \frac{1}{\sin \theta} \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial Y}{\partial \theta} \right) = \lambda$
 
-If you'd like to change the theme's HTML layout:
+其中，$\lambda$ 是一个分离常数。
 
-1. For some changes such as a custom `favicon`, you can add custom files in your local `_includes` folder. The files [provided with the theme](https://github.com/pages-themes/cayman/tree/master/_includes) provide a starting point and are included by the [original layout template](https://github.com/pages-themes/cayman/blob/master/_layouts/default.html).
-2. For more extensive changes, [copy the original template](https://github.com/pages-themes/cayman/blob/master/_layouts/default.html) from the theme's repository<br />(*Pro-tip: click "raw" to make copying easier*)
-3. Create a file called `/_layouts/default.html` in your site
-4. Paste the default layout content copied in the first step
-5. Customize the layout as you'd like
+### 6. 求解径向方程
 
-### Customizing Google Analytics code
+径向方程可以进一步简化为：
 
-Google has released several iterations to their Google Analytics code over the years since this theme was first created. If you would like to take advantage of the latest code, paste it into `_includes/head-custom-google-analytics.html` in your Jekyll site.
+$r^2 \frac{d^2R}{dr^2} + 2r \frac{dR}{dr} + \lambda r^2  = 0$
 
-### Overriding GitHub-generated URLs
+这是一个二阶常微分方程，其解的形式取决于 $\lambda$ 的值。通常，我们设 $\lambda = l(l+1)$，其中 $l$ 是一个非负整数，这样方程就有解：
 
-Templates often rely on URLs supplied by GitHub such as links to your repository or links to download your project. If you'd like to override one or more default URLs:
+$R(r) = A r^l + \frac{B}{r^{l+1}}$
 
-1. Look at [the template source](https://github.com/pages-themes/cayman/blob/master/_layouts/default.html) to determine the name of the variable. It will be in the form of `{{ site.github.zip_url }}`.
-2. Specify the URL that you'd like the template to use in your site's `_config.yml`. For example, if the variable was `site.github.url`, you'd add the following:
-    ```yml
-    github:
-      zip_url: http://example.com/download.zip
-      another_url: another value
-    ```
-3. When your site is built, Jekyll will use the URL you specified, rather than the default one provided by GitHub.
+在物理问题中，通常要求解在原点有限且随 $r$ 趋于无穷大时趋于零的解，因此 $B$ 必须为零，且 $A$ 可以归一化。
 
-*Note: You must remove the `site.` prefix, and each variable name (after the `github.`) should be indent with two space below `github:`.*
+### 7. 求解角向方程
 
-For more information, see [the Jekyll variables documentation](https://jekyllrb.com/docs/variables/).
+角向方程为：
 
-## Roadmap
+$\frac{1}{\sin^2 \theta} \frac{\partial^2 Y}{\partial \phi^2} + \frac{1}{\sin \theta} \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial Y}{\partial \theta} \right) = l(l+1) Y$
 
-See the [open issues](https://github.com/pages-themes/cayman/issues) for a list of proposed features (and known issues).
+通过进一步分离变量 $Y(\theta, \phi) = \Theta(\theta) \Phi(\phi)$，并代入上式，可以得到两个方程：
 
-## Project philosophy
+$\frac{d^2 \Phi}{d\phi^2} = m^2 \Phi$
 
-The Cayman theme is intended to make it quick and easy for GitHub Pages users to create their first (or 100th) website. The theme should meet the vast majority of users' needs out of the box, erring on the side of simplicity rather than flexibility, and provide users the opportunity to opt-in to additional complexity if they have specific needs or wish to further customize their experience (such as adding custom CSS or modifying the default layout). It should also look great, but that goes without saying.
+$\frac{1}{\sin \theta} \frac{d}{d\theta} \left( \sin \theta \frac{d\Theta}{d\theta} \right) + \left[ l(l+1) - \frac{m^2}{\sin^2 \theta} \right] \Theta = 0$
 
-## Contributing
+其中，$m$ 是一个整数，且 $|m| \leq l$。
 
-Interested in contributing to Cayman? We'd love your help. Cayman is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for instructions on how to contribute.
+### 8. 求解角向方程的 $\Phi(\phi)$ 部分
 
-### Previewing the theme locally
+$\Phi(\phi) = e^{im\phi}$
 
-If you'd like to preview the theme locally (for example, in the process of proposing a change):
+### 9. 求解角向方程的 $\Theta(\theta)$ 部分
+$\frac{1}{\sin \theta} \frac{d}{d \theta} \left( \sin \theta \frac{d \Theta}{d \theta} \right) + \left( l(l+1) - \frac{m^2}{\sin^2 \theta} \right) \Theta = 0.$
+通过变换和进一步求解，可以得到 $\Theta(\theta)$ 的解为勒让德多项式（Associated Legendre Polynomials）的形式。
 
-1. Clone down the theme's repository (`git clone https://github.com/pages-themes/cayman`)
-2. `cd` into the theme's directory
-3. Run `script/bootstrap` to install the necessary dependencies
-4. Run `bundle exec jekyll serve` to start the preview server
-5. Visit [`localhost:4000`](http://localhost:4000) in your browser to preview the theme
+### 10. 综合解
 
-### Running tests
+最终，球谐函数 $Y_{lm}(\theta, \phi)$ 可以表示为：
 
-The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` once before the test script will work.
+$Y_{lm}(\theta, \phi) = \sqrt{\frac{(2l+1)(l-m)!}{(l+m)!}} P_l^m(\cos \theta) e^{im\phi}$
+
+其中，$P_l^m(\cos \theta)$ 是勒让德多项式。
+
+下面我们列出几个球谐函数：
+$$\begin{aligned}&Y_{0}^{0}=\sqrt{\frac{1}{4\pi}}\\&Y_{-1}^{1}=\sqrt{\frac{4}{8\pi}}\sin\theta e^{-i\phi},Y_{0}^{1}=\sqrt{\frac{4}{8\pi}}\cos\theta,Y_{1}^{1}=-\sqrt{\frac{4}{8\pi}}\sin\theta e^{i\phi}\\&Y_{-2}^{2}=\frac{1}{4}\sqrt{\frac{15}{2\pi}}\sin^{2}\theta e^{-2i\phi},Y_{-1}^{2}=\frac{1}{2}\sqrt{\frac{15}{2\pi}}\sin\theta\cos\theta e^{-i\phi},Y_{0}^{2}=\frac{1}{4}\sqrt{\frac{5}{\pi}}(3\cos^{2}\theta-1),\\&Y_{1}^{2}=-Y_{-1}^{2}{}^{*},Y_{2}^{2}=Y_{-2}^{2}{}^{*}\end{aligned}$$
